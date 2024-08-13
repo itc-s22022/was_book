@@ -1,0 +1,25 @@
+// 攻撃
+// 信頼されたユーザーを通じて意図しない操作を行わせる攻撃
+
+// コード
+<?php
+if ($_POST['action'] == 'delete') {
+}
+?>
+
+
+// 対策
+<?php
+$token = bin2hex(random_bytes(32));
+$_SESSION['token'] = $token;
+?>
+<form method="post">
+    <input type="hidden" name="token" value="<?php echo $token; ?>">
+    <input type="submit" name="action" value="delete">
+</form>
+<?php
+if ($_POST['token'] !== $_SESSION['token']) {
+    die("CSRF token validation failed");
+}
+?>
+

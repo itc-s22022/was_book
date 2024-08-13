@@ -1,0 +1,16 @@
+// 攻撃
+// ユーザーがログインしている間の状態を管理しますが、セッションIDの盗難やセッション固定攻撃に脆弱
+
+// コード
+<?php
+session_start();
+$_SESSION['user_id'] = $_POST['user_id'];
+?>
+
+// 対策
+<?php
+session_start();
+session_regenerate_id(true); 
+$_SESSION['user_id'] = $user_id;
+?>
+
